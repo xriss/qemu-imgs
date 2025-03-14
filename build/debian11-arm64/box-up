@@ -2,8 +2,8 @@ cd `dirname $0`
 
 #default network forward unless we provide args
 NET=
-if [[ $# -eq 0 ]]; then
-NET=-netdev user,id=net0,hostfwd=tcp::5522-:22
+if [ $# -eq 0 ]; then
+NET="-netdev user,id=net0,hostfwd=tcp::5522-:22"
 fi
 
 
