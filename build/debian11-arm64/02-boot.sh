@@ -1,5 +1,6 @@
 cd `dirname $0`
 
+echo " need to manually do an install here then poweroff the box "
 
 qemu-system-aarch64 \
 -M virt \
