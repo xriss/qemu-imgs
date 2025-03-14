@@ -1,0 +1,25 @@
+cd `dirname $0`
+
+#default network forward unless we provide args
+NET=
+if [[ $# -eq 0 ]]; then
+NET=-netdev user,id=net0,hostfwd=tcp::5522-:22
+fi
+
+
+qemu-system-aarch64 \
+	-M virt \
+	-cpu cortex-a53 \
+	-cpu max \
+	-m 2g \
+	-smp 4 \
+  	-kernel box/vmlinuz \
+	-initrd box/initrd.img \
+	-drive file="box/sda.qcow2",id=hd,if=none,media=disk \
+	-append "console=ttyAMA0" \
+	-device virtio-scsi-device \
+	-device scsi-hd,drive=hd \
+	-device e1000,netdev=net0 \
+	-nographic \
+	$NET \
+	$*

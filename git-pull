@@ -1,0 +1,15 @@
+cd `dirname $0`
+
+git pull --all
+git checkout main
+
+echo " box worktree to track box branch "
+rm -rf box
+git worktree add -f box origin/box
+if [ -d box ]; then
+  cd box
+  git branch -D box
+  git switch -c box
+  cd ..
+else
+fi
