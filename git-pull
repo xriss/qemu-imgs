@@ -16,7 +16,7 @@ fi
 git switch main
 
 echo " unpacking box img "
-cd build/debian11-arm64
-ln -s ../../box/debian11-arm64 box
+cd debian11-arm64
+ln -s ../box/debian11-arm64 box
 box/ungzip
-cd ../..
+cd ..
