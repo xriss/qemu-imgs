@@ -11,5 +11,5 @@ if [ -d box ]; then
   git branch -D box
   git switch -c box
   cd ..
-else
 fi
+ git switch main
