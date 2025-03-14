@@ -17,6 +17,7 @@ git switch main
 
 echo " unpacking box img "
 cd debian11-arm64
+rm -rf box
 ln -s ../box/debian11-arm64 box
 box/ungzip
 cd ..
