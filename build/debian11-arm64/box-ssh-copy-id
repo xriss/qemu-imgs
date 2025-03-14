@@ -1,5 +1,7 @@
 cd `dirname $0`
 
+./box-up >/dev/null &
+
 echo " copying your id_ed25519.pub to the authorised keys for auto login "
 ssh-keygen -f "$HOME/.ssh/known_hosts" -R [localhost]:5522
 while ! cat ~/.ssh/id_ed25519.pub | sshpass -p vagrant ssh -oStrictHostKeyChecking=no -p 5522 vagrant@localhost " \
