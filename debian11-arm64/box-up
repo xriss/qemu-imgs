@@ -6,6 +6,7 @@ if [ $# -eq 0 ]; then
 NET="-netdev user,id=net0,hostfwd=tcp::5522-:22"
 fi
 
+HOSTDIR=`pwd`
 
 qemu-system-aarch64 \
 	-M virt \
@@ -15,6 +16,7 @@ qemu-system-aarch64 \
   	-kernel box/vmlinuz \
 	-initrd box/initrd.img \
 	-drive file="box/sda.qcow2",id=hd,if=none,media=disk \
+	-virtfs local,path=$HOSTDIR/..,mount_tag=host,security_model=mapped-xattr \
 	-append "console=ttyAMA0" \
 	-device virtio-scsi-device \
 	-device scsi-hd,drive=hd \
@@ -22,3 +24,6 @@ qemu-system-aarch64 \
 	-nographic \
 	$NET \
 	$*
+
+
+
