@@ -1,0 +1,5 @@
+cd `dirname $0`
+
+rm sda.qcow2.gz_a*
+gzip -c sda.qcow2 | pv | split -b 50MiB - sda.qcow2.gz_
+

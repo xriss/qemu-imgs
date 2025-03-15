@@ -1,0 +1,3 @@
+cd `dirname $0`
+
+cat sda.qcow2.gz_* | pv | gunzip -c > sda.qcow2
