@@ -14,5 +14,4 @@ qemu-system-aarch64 \
 -drive file=roms/mini.iso,id=cdrom,if=none,media=cdrom \
 -device virtio-scsi-device \
 -device scsi-cd,drive=cdrom \
--device e1000,netdev=net0 \
 -nographic \

@@ -1,14 +1,8 @@
 cd `dirname $0`
 
-#default network forward unless we provide args
-NET=
-if [ $# -eq 0 ]; then
-NET="-netdev user,id=net0,hostfwd=tcp::5522-:22"
-fi
-
 HOSTDIR=`pwd`
 
-qemu-system-aarch64 \
+OPTS=" \
 	-M virt \
 	-cpu max \
 	-m 2g \
@@ -16,14 +10,16 @@ qemu-system-aarch64 \
   	-kernel box/vmlinuz \
 	-initrd box/initrd.img \
 	-drive file="box/sda.qcow2",id=hd,if=none,media=disk \
-	-virtfs local,path=$HOSTDIR/..,mount_tag=host,security_model=mapped-xattr \
 	-append "console=ttyAMA0" \
 	-device virtio-scsi-device \
 	-device scsi-hd,drive=hd \
-	-device e1000,netdev=net0 \
 	-nographic \
-	$NET \
-	$*
+	-nic hostfwd=tcp::5522-:22 \
+	-virtfs local,path=$HOSTDIR/..,mount_tag=host,security_model=mapped-xattr \
+	$* \
+"
 
+echo qemu-system-aarch64 $OPTS
 
+qemu-system-aarch64 $OPTS
 
