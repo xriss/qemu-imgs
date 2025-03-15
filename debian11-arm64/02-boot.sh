@@ -4,8 +4,9 @@ echo " need to manually do an install here then poweroff the box "
 
 qemu-system-aarch64 \
 -M virt \
--cpu cortex-a53 \
+-cpu max \
 -m 2G \
+-smp 4 \
 -kernel roms/linux \
 -initrd roms/initrd.gz \
 -hda roms/sda.qcow2 \
@@ -13,5 +14,5 @@ qemu-system-aarch64 \
 -drive file=roms/mini.iso,id=cdrom,if=none,media=cdrom \
 -device virtio-scsi-device \
 -device scsi-cd,drive=cdrom \
+-device e1000,netdev=net0 \
 -nographic \
-
